@@ -67,16 +67,6 @@ namespace Stubble.Compilation.Helpers
                     var appendMethod = typeof(StringBuilder).GetMethod("Append", new[] { invocation.Type });
                     var append = Expression.Call(renderer.Builder, appendMethod, invocation);
                     renderer.AddExpressionToScope(append);
-
-                    //var result = helper.Delegate.Method.Invoke(helper.Delegate.Target, arr);
-                    //if (result is string str)
-                    //{
-                    //    renderer.Write(str);
-                    //}
-                    //else if (result is object)
-                    //{
-                    //    renderer.Write(Convert.ToString(result, context.RenderSettings.CultureInfo));
-                    //}
                 }
             }
         }
