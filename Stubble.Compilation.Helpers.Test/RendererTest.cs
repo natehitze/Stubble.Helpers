@@ -29,5 +29,46 @@ namespace Stubble.Compilation.Helpers.Test
 
             Assert.Equal("10: £10.00, 100.26: £100.26", res);
         }
+
+        public class FakeTemplate
+        {
+            public FakeDataObject Person { get; set; }
+        }
+
+        public class FakeDataObject
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
+
+        [Fact]
+        [UseCulture("en-GB")]
+        public void StubbleTemplateRendering()
+        {
+            var culture = new CultureInfo("en-GB");
+            var helpers = new CompiledHelpers()
+                .Register<FakeDataObject>("FormatPerson", (context, person) => $"{person.FirstName} {person.LastName}");
+
+            var settings = new CompilerSettingsBuilder()
+                .AddHelpers(helpers)
+                .BuildSettings();
+
+            var stubble = new StubbleCompilationRenderer(settings);
+
+            var tmpl = @"Hello, {{FormatPerson Person}}.";
+            var data = new FakeTemplate
+            {
+                Person = new FakeDataObject
+                {
+                    FirstName = "Jane",
+                    LastName = "Doe",
+                }
+            };
+            var func = stubble.Compile(tmpl, data);
+
+            var res = func(data);
+
+            Assert.Equal("Hello, Jane Doe.", res);
+        }
 	}
 }
