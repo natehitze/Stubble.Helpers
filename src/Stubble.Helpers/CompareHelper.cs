@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 
 namespace Stubble.Helpers
 {
-    internal static class CompareHelper
+    public static class CompareHelper
     {
         internal static bool CompareImmutableArraysWithEquatable<T>(in ImmutableArray<T> arr1, in ImmutableArray<T> arr2)
             where T : IEquatable<T>
@@ -29,7 +29,7 @@ namespace Stubble.Helpers
             return false;
         }
 
-        internal static bool CompareImmutableArrays<T>(in ImmutableArray<T> arr1, in ImmutableArray<T> arr2)
+        public static bool CompareImmutableArrays<T>(in ImmutableArray<T> arr1, in ImmutableArray<T> arr2)
         {
             if (arr1 == arr2)
             {

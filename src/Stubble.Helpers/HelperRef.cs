@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 
 namespace Stubble.Helpers
 {
-    public readonly struct HelperRef : IEquatable<HelperRef>
+    public readonly struct HelperRef : IEquatable<HelperRef>, IHelperRef
     {
         public HelperRef(Delegate @delegate)
         {
